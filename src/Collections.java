@@ -83,8 +83,15 @@ class User {
     String name;
     int age;
     int phone;
-    HashSet<User> userSet = new HashSet<>();
+    HashSet<User> userSet1 = new HashSet<>();
 
+    public HashSet<User> getUserSet1() {
+        return userSet1;
+    }
+
+    public void setUserSet1(HashSet<User> userSet1) {
+        this.userSet1 = userSet1;
+    }
 
     public User(String name, int age, int phone) {
         this.name = name;
