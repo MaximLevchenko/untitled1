@@ -59,8 +59,14 @@ public class Collections {
         map1.put(10, "October");
         map1.put(11, "November");
         map1.put(12, "December");
-        System.out.println(map1.get(0) + " " + map1.get(11));
+        System.out.println(map1.get(1) + " " + map1.get(12));
         map1.replace(6,"VACATION");
+Map<Integer,String >map2=new HashMap<>(map1);
+        for(Map.Entry<Integer,String>e:map2.entrySet()){
+            System.out.println(e);
+        }
+        System.out.println(map1);
+        System.out.println(map2);
 
 
     }
