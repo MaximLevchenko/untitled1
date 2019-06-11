@@ -40,7 +40,7 @@ public class Collections {
         set1.addAll(list2);
         for (String s : set1) {
             System.out.println(set1);
-        }
+        };
 
         Set<String> set2 = new LinkedHashSet<>();
         set2.addAll(list2);
