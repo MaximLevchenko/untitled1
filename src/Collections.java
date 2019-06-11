@@ -1,9 +1,10 @@
 import java.util.*;
 
 /**
- * Created by Dmitriy Yevtushenko on 11.06.2019.
+ * Created by Levchenko Maksym on 11.06.2019.
  */
 public class Collections {
+
 
     public static void main(String[] args) {
         List<String> list1 = new ArrayList<>();
@@ -40,7 +41,8 @@ public class Collections {
         set1.addAll(list2);
         for (String s : set1) {
             System.out.println(set1);
-        };
+        }
+        ;
 
         Set<String> set2 = new LinkedHashSet<>();
         set2.addAll(list2);
@@ -60,14 +62,39 @@ public class Collections {
         map1.put(11, "November");
         map1.put(12, "December");
         System.out.println(map1.get(1) + " " + map1.get(12));
-        map1.replace(6,"VACATION");
-Map<Integer,String >map2=new HashMap<>(map1);
-        for(Map.Entry<Integer,String>e:map2.entrySet()){
+        map1.replace(6, "VACATION");
+        Map<Integer, String> map2 = new HashMap<>(map1);
+        for (Map.Entry<Integer, String> e : map2.entrySet()) {
             System.out.println(e);
         }
         System.out.println(map1);
         System.out.println(map2);
 
-
+        Map<String, String> map3 = new HashMap<>();
+        map3.put("Levchenko Maksym", "Skype:andrewct2");
+        for (Map.Entry<String, String> item : map3.entrySet()) {
+            System.out.println(item);
+        }
     }
+}
+
+class User {
+
+    String name;
+    int age;
+    int phone;
+    HashSet<User> userSet = new HashSet<>();
+
+
+    public User(String name, int age, int phone) {
+        this.name = name;
+        this.age = age;
+        this.phone = phone;
+    }
+
+    User user = new User("Mike", 34, 235);
+    User user1 = new User("Mike", 34, 235);
+    User user3 = new User("Mike", 35, 235);
+
+
 }
