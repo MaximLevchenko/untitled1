@@ -76,9 +76,9 @@ public class Collections {
             System.out.println(item);
         }
     }
-}
 
-class User {
+
+private class User {
 
     String name;
     int age;
@@ -93,15 +93,23 @@ class User {
         this.userSet1 = userSet1;
     }
 
-    public User(String name, int age, int phone) {
+    /**
+     * @param name
+     * @param age
+     * @param phone
+     */
+    User(String name, int age, int phone) {
         this.name = name;
         this.age = age;
         this.phone = phone;
+
     }
 
     User user = new User("Mike", 34, 235);
     User user1 = new User("Mike", 34, 235);
-    User user3 = new User("Mike", 35, 235);
-
-
+    User user2 = new User("Mike", 35, 235);
+    {
+        System.out.println(user+" "+user1+" "+user2);
+    }
+}
 }
