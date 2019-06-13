@@ -3,8 +3,6 @@ package MultiThreading;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Levchenko Maksym on 13.06.2019.
@@ -62,6 +60,7 @@ class RaceCarRunnable extends Car implements Runnable {
             passedDistance += (currentSpeed * 1000 / (60 * 60));
             if (passedDistance >= distance) {
                 isFinished = true;
+                System.out.println("FINISHED");
             } else {
                 isFinished = false;
             }
@@ -71,7 +70,18 @@ class RaceCarRunnable extends Car implements Runnable {
 
 class Race {
     public static void main(String[] args) {
-        List<RaceCarRunnable> cars = new ArrayList<>();
-        ArrayList<Thread> threads = new ArrayList<>();
+        List<String> cars = new ArrayList<>();
+        cars.add(1,"Lanos");
+        cars.add(2,"Honda");
+        cars.add(3,"Ferrari");
+        cars.add(4,"Lamborgini");
+        List<Thread> threads = new ArrayList();
+        threads.add(new Thread(("Honda")));
+        }
+
+        static void startRace(List<Thread>cars){
+
     }
-}
+    }
+
+
