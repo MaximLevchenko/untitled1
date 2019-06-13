@@ -1,7 +1,8 @@
 
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
- class Calculator {
+class Calculator {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -12,8 +13,13 @@ import java.util.Scanner;
         System.out.println("Результат операции: "+result);
     } 
 
+
+
+
+
     public static int getInt(){
-        System.out.println("Введите число:");
+        System.out.println("Введите число:" +
+                "");
         int num;
         if(scanner.hasNextInt()){
             num = scanner.nextInt();
