@@ -1,5 +1,6 @@
 package MultiThreading;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -100,8 +101,10 @@ class RaceCarRunnable extends Car implements Runnable {
 
 class Race {
     static AtomicLong startRaceTime;
-
     public static void main(String[] args) {
+
+        System.out.println(LocalDate.now());
+        System.out.println();
         final int distance = 1000;
         final ArrayList<Car> cars = new ArrayList<>();
         cars.add(new Car("Honda", 340));
