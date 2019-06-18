@@ -2,6 +2,7 @@ package MultiThreading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -27,13 +28,15 @@ class Car {
 
 class RaceCarRunnable extends Car implements Runnable {
 
-    public RaceCarRunnable(String name, int maxSpeed, int passedDistance, int distance, boolean isFinished) {
+    public RaceCarRunnable(String name, int maxSpeed, CountDownLatch countDownLatch, int passedDistance, int distance, boolean isFinished) {
         super(name, maxSpeed);
+        this.countDownLatch = countDownLatch;
         this.passedDistance = passedDistance;
         this.distance = distance;
         this.isFinished = isFinished;
     }
 
+    private final CountDownLatch countDownLatch;
     int passedDistance;
     int distance;
     boolean isFinished;
@@ -62,26 +65,29 @@ class RaceCarRunnable extends Car implements Runnable {
                 isFinished = true;
                 System.out.println("FINISHED");
             } else {
-                isFinished = false;
+                System.out.println(this);
             }
         }
     }
 }
 
-class Race {
+public class Race {
     public static void main(String[] args) {
-        List<String> cars = new ArrayList<>();
-        cars.add(1,"Lanos");
-        cars.add(2,"Honda");
-        cars.add(3,"Ferrari");
-        cars.add(4,"Lamborgini");
-        List<Thread> threads = new ArrayList();
-        threads.add(new Thread(("Honda")));
-        }
-
-        static void startRace(List<Thread>cars){
+        final ArrayList<Car> cars = new ArrayList<>();
+        cars.add(new Car("Honda", 250)));
+        cars.add(new Car("Lamborgini", 400));
+        cars.add(new Car("Ferrari", 350));
+        cars.add(new Car("Lanos", 220));
+        final CountDownLatch countDownLatch = new CountDownLatch(cars.size());
+        final ArrayList<RaceCarRunnable>raceCarRunnables=new ArrayList<>();
+        raceCarRunnables.forEach(raceCar->raceCarRunnables.add((new RaceCarRunnable(raceCar, distance, countDownLatch))));
+        final List<Thread> threads = new ArrayList();
 
     }
+
+    static void startRace(List<Thread> cars) {
+
     }
+}
 
 
