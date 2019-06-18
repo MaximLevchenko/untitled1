@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -38,10 +37,10 @@ class RaceCarRunnable extends Car implements Runnable {
         return FinishTime / ONE_SEC_MILLIS;
     }
 
-    int FinishTime;
+    Long FinishTime;
 
     public RaceCarRunnable(String name, int maxSpeed, CountDownLatch countDownLatch, int passedDistance, int distance,
-                           boolean isFinished, int FinishTime) {
+                           boolean isFinished, Long FinishTime) {
         super(name, maxSpeed);
         this.countDownLatch = countDownLatch;
         this.passedDistance = passedDistance;
@@ -73,7 +72,7 @@ class RaceCarRunnable extends Car implements Runnable {
     public void run() {
 
         while (!isFinished) {
-            FinishTime = (int) (System.currentTimeMillis() - Race.startRaceTime.get());
+            FinishTime = (System.currentTimeMillis() - Race.startRaceTime.get());
             int currentSpeed = getRandomSpeed();
             try {
                 Thread.sleep(1000);
@@ -88,8 +87,10 @@ class RaceCarRunnable extends Car implements Runnable {
                 countDownLatch.countDown();
                 System.out.println(getName() + " " + "HAVE FINISHED");
             } else {
-                System.out.println("CARNAME:" + " " + getName() + " " + "|CARSPEED:" + currentSpeed + " " + "|CARPROGRESS:" + " "
-                        + passedDistance + " " + distance+"\t"+"TIME"+" "+getFinishTime());
+                System.out.println("|CARNAME:|-->" + "\t " + getName() + "\t " + "|CARSPEED:|" +"--> "+" " +
+                        "\t"+ currentSpeed + "\t " + "|CARPROGRESS:|" +"--> "+" " + passedDistance + " \t"
+                        +"|WHOLE_DISTANCE:| " +"--> " +"\t " + distance + "\t" + "|TIME:|"+"--> " + "\t "
+                        + getFinishTime());
             }
         }
     }
@@ -124,7 +125,7 @@ class Race {
 
     }
 
-    private static RaceCarRunnable defineWinner(final List<RaceCarRunnable> raceCarRunnables) {
+    private static RaceCarRunnable defineWinner(List<RaceCarRunnable> raceCarRunnables) {
         return raceCarRunnables.stream()
                 .min(Comparator.comparingLong(RaceCarRunnable::getFinishTime))
                 .orElseThrow(NoSuchElementException::new);
