@@ -12,19 +12,19 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by Levchenko Maksym on 13.06.2019.
  */
 class Car {
-    String name;
-    int maxSpeed;
+    private String name;
+    private int maxSpeed;
 
-    public Car(String name, int maxSpeed) {
+    Car(String name, int maxSpeed) {
         this.name = name;
         this.maxSpeed = maxSpeed;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getMaxSpeed() {
+    int getMaxSpeed() {
         return maxSpeed;
     }
 }
@@ -33,11 +33,11 @@ class RaceCarRunnable extends Car implements Runnable {
     private static final double METERS_PER_SEC = 1000d / 3600;
     private static final int ONE_SEC_MILLIS = 1000;
 
-    public long getFinishTime() {
+    long getFinishTime() {
         return FinishTime / ONE_SEC_MILLIS;
     }
 
-    Long FinishTime;
+    private Long FinishTime;
 
     public RaceCarRunnable(String name, int maxSpeed, CountDownLatch countDownLatch, int passedDistance, int distance,
                            boolean isFinished, Long FinishTime) {
@@ -51,18 +51,18 @@ class RaceCarRunnable extends Car implements Runnable {
     }
 
     private CountDownLatch countDownLatch;
-    int passedDistance;
-    int distance;
-    boolean isFinished;
+    private int passedDistance;
+    private int distance;
+    private boolean isFinished;
 
-    public RaceCarRunnable(Car raceCar, int distance, CountDownLatch countDownLatch) {
+    RaceCarRunnable(Car raceCar, int distance, CountDownLatch countDownLatch) {
         super(raceCar.getName(), raceCar.getMaxSpeed());
         this.distance = distance;
         this.countDownLatch = countDownLatch;
     }
 
 
-    public int getRandomSpeed() {
+    private int getRandomSpeed() {
 
 
         return ThreadLocalRandom.current().nextInt(getMaxSpeed() / 2, getMaxSpeed());
@@ -85,11 +85,11 @@ class RaceCarRunnable extends Car implements Runnable {
             if (passedDistance >= distance) {
                 isFinished = true;
                 countDownLatch.countDown();
-                System.out.println(getName() + " " + "HAVE FINISHED");
+                System.out.println(getName() + " " + "HAVE FINISHED>>"+" "+"TIME IS:"+"\t"+getFinishTime());
             } else {
-                System.out.println("|CARNAME:|-->" + "\t " + getName() + "\t " + "|CARSPEED:|" +"--> "+" " +
-                        "\t"+ currentSpeed + "\t " + "|CARPROGRESS:|" +"--> "+" " + passedDistance + " \t"
-                        +"|WHOLE_DISTANCE:| " +"--> " +"\t " + distance + "\t" + "|TIME:|"+"--> " + "\t "
+                System.out.println("|CARNAME:|-->" + "\t " + getName() + "\t " + "|CARSPEED:|" + "--> " + " " +
+                        "\t" + currentSpeed + "\t " + "|CARPROGRESS:|" + "--> " + " " + passedDistance + " \t"
+                        + "|WHOLE_DISTANCE:| " + "--> " + "\t " + distance + "\t" + "|TIME:|" + "--> " + "\t "
                         + getFinishTime());
             }
         }
@@ -104,10 +104,10 @@ class Race {
     public static void main(String[] args) {
         final int distance = 1000;
         final ArrayList<Car> cars = new ArrayList<>();
-        cars.add(new Car("Honda", 250));
-        cars.add(new Car("Lamborgini", 400));
+        cars.add(new Car("Honda", 340));
+        cars.add(new Car("Lamborgini", 360));
         cars.add(new Car("Ferrari", 350));
-        cars.add(new Car("Lanos", 220));
+        cars.add(new Car("Lanos", 330));
         CountDownLatch countDownLatch = new CountDownLatch(cars.size());
         List<RaceCarRunnable> raceCarRunnables = new ArrayList<>();
         cars.forEach(raceCar -> raceCarRunnables.add((new RaceCarRunnable(raceCar, distance, countDownLatch))));
@@ -117,8 +117,8 @@ class Race {
 
         try {
             countDownLatch.await();
-            System.out.println("=================== RACE OVER! ======================");
-            System.out.println("!!!!!!!!!!!!! WINNER: " + defineWinner(raceCarRunnables).getName() + " !!!!!!!!!!!!!!!");
+            System.out.println("=================== RACE IS OVER! ======================");
+            System.out.println("!!!!!!!!!!!!! WINNER IS: " + defineWinner(raceCarRunnables).getName() + " !!!!!!!!!!!!!!!");
         } catch (InterruptedException ex) {
             System.err.print(ex);
         }
@@ -132,7 +132,7 @@ class Race {
     }
 
 
-    static void startRace(List<Thread> cars) {
+    private static void startRace(List<Thread> cars) {
         new Thread(() -> {
             try {
 
