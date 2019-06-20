@@ -71,7 +71,6 @@ class RaceCarRunnable extends Car implements Runnable {
 
     @Override
     public void run() {
-
         while (!isFinished) {
             FinishTime = (System.currentTimeMillis() - Race.startRaceTime.get());
             int currentSpeed = getRandomSpeed();
@@ -86,7 +85,7 @@ class RaceCarRunnable extends Car implements Runnable {
             if (passedDistance >= distance) {
                 isFinished = true;
                 countDownLatch.countDown();
-                System.out.println(getName() + " " + "HAVE FINISHED>>"+" "+"TIME IS:"+"\t"+getFinishTime());
+                System.out.println(getName() + " " + "HAVE FINISHED>>" + " " + "TIME IS:" + "\t" + getFinishTime());
             } else {
                 System.out.println("|CARNAME:|-->" + "\t " + getName() + "\t " + "|CARSPEED:|" + "--> " + " " +
                         "\t" + currentSpeed + "\t " + "|CARPROGRESS:|" + "--> " + " " + passedDistance + " \t"
@@ -98,9 +97,9 @@ class RaceCarRunnable extends Car implements Runnable {
 
 
 }
-
 class Race {
     static AtomicLong startRaceTime;
+
     public static void main(String[] args) {
 
         System.out.println(LocalDate.now());
@@ -112,10 +111,15 @@ class Race {
         cars.add(new Car("Ferrari", 350));
         cars.add(new Car("Lanos", 330));
         CountDownLatch countDownLatch = new CountDownLatch(cars.size());
+
         List<RaceCarRunnable> raceCarRunnables = new ArrayList<>();
+
         cars.forEach(raceCar -> raceCarRunnables.add((new RaceCarRunnable(raceCar, distance, countDownLatch))));
+
         List<Thread> threads = new ArrayList();
+
         raceCarRunnables.forEach(raceCar -> threads.add(new Thread(raceCar)));
+
         startRace(threads);
 
         try {
